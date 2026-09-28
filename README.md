@@ -45,7 +45,12 @@ Values below come from circuit simulation and are pending bench validation.
     - NPS: ITImin replaces the period.
     - Examples (biphasic, 25 µs delay): approximately 9.9 ms at 50 Hz and 0.94 ms at 500 Hz.
 
-- **Hardware limitation for long phases:** The CBLK capacitor charges according to I × t / C during each phase. For example, at 1 mA into 10 kΩ with a 47 µF CBLK (~7 V compliance margin), the approximate maximum phase duration is 330 ms. In monophasic mode, charge also accumulates over the pulse train.
+- **Hardware limitation, per phase (both modes):** during a phase, the blocking capacitor charges by I × t / C. The phase must end before this voltage consumes the compliance margin of the current source. For example, at 1 mA into a 10 kΩ load (~7 V of margin) with a 47 µF CBLK, the maximum phase duration is about 330 ms. 
+
+- **Hardware limitation, charge accumulation (monophasic only):** in monophasic mode all charge flows in the same direction and accumulates over the pulse train, and RBLEED is what keeps it bounded. The steady-state voltage across CBLK is approximately I × duty cycle × RBLEED, reached with a time constant of RBLEED × CBLK (~8 min with 10 MΩ and 47 µF). At 1 mA, 100 µs phases and 4 Hz, this settles around 4 V, which has to be subtracted from the available compliance. If I × duty cycle × RBLEED exceeds the compliance margin, the output saturates before steady state is reached; the train then has to end within about CBLK × margin / average current. In balanced biphasic mode this does not occur: the charge of each phase is returned by the next one, and only the mismatch between phases remains. For a 4 µs mismatch at 1 mA and 4 Hz, the residual is about 0.16 V.
+
+- **Possible solution for long monophasic protocols (under evaluation):** a larger CBLK (e.g. 100 µF film) extends both limits while keeping DC protection. If the protocol requires true net charge, an optional jumper/switch footprint can short CBLK, making the output DC-coupled with no charge accumulation. This also removes the DC protection (op-amp offset and faults reach the tissue) and used together with the current limiter and output-enable stage.
+
 
 ## Author
 
