@@ -42,8 +42,6 @@ Values below come from circuit simulation and are pending bench validation.
 - **Maximum phase duration:** Firmware-limited, capped at 999.99 ms in all modes.
     - Biphasic: (Period − 100 µs − Delay) / 2
     - Monophasic: Period − 100 µs
-    - NPS: ITImin replaces the period.
-    - Examples (biphasic, 25 µs delay): approximately 9.9 ms at 50 Hz and 0.94 ms at 500 Hz.
 
 - **Hardware limitation, per phase (both modes):** during a phase, the blocking capacitor charges by I × t / C. The phase must end before this voltage consumes the compliance margin of the current source. For example, at 1 mA into a 10 kΩ load (~7 V of margin) with a 47 µF CBLK, the maximum phase duration is about 330 ms. 
 
