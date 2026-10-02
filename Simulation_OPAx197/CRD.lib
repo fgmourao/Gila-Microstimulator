@@ -1,0 +1,45 @@
+* =====================================================================
+* CRD.lib - Diodos reguladores de corrente (CRD/CLD), modelo aproximado
+* Familia 1N5283-1N5314 (Central Semi / Microchip), valores nominais
+* Cada CRD = JFET canal N com gate e source ligados (Idss = Beta*Vto^2; Beta ajustado para Ip nominal a 25 V)
+* Pinos: A (anodo) K (catodo, lado da faixa)
+*   Sentido direto (A -> K): limita a corrente em ~Ip
+*   Sentido reverso: conduz como diodo comum (~0,7 V), pela juncao G-D
+* Modelo para simulacao de comportamento, nao para tolerancia de pecas.
+* CP (10 pF) e RP (100 MOhm) em paralelo: capacitancia/fuga parasitas,
+* tambem evitam "timestep too small" quando a saida do amp-op satura.
+* =====================================================================
+
+* 1N5302: Ip nominal 1,50 mA (min 1,28 / max 1,73 mA)
+.subckt CRD1N5302 A K
+J1 A K K NJF_5302
+CP A K 10p
+RP A K 100Meg
+.model NJF_5302 NJF(Vto=-1.5 Beta=0.6457m Lambda=1.3m Is=1e-14 Rd=5 Rs=5 Cgs=2p Cgd=2p)
+.ends CRD1N5302
+
+* 1N5304: Ip nominal 1,80 mA (min 1,53 / max 2,07 mA)
+.subckt CRD1N5304 A K
+J1 A K K NJF_5304
+CP A K 10p
+RP A K 100Meg
+.model NJF_5304 NJF(Vto=-1.5 Beta=0.775m Lambda=1.3m Is=1e-14 Rd=5 Rs=5 Cgs=2p Cgd=2p)
+.ends CRD1N5304
+
+* 1N5305: Ip nominal 2,00 mA (min 1,70 / max 2,30 mA)
+.subckt CRD1N5305 A K
+J1 A K K NJF_5305
+CP A K 10p
+RP A K 100Meg
+.model NJF_5305 NJF(Vto=-1.5 Beta=0.861m Lambda=1.3m Is=1e-14 Rd=5 Rs=5 Cgs=2p Cgd=2p)
+.ends CRD1N5305
+
+
+* ---------------------------------------------------------------------
+* Plano B: modelos de nivel superior para usar direto no simbolo "njf"
+* do LTspice (sem subcircuito). Ligar gate e source juntos:
+*   dreno (D) = anodo   |   gate + source (G+S) = catodo
+* ---------------------------------------------------------------------
+.model CRDJ5302 NJF(Vto=-1.5 Beta=0.6457m Lambda=1.3m Is=1e-14 Rd=5 Rs=5 Cgs=2p Cgd=2p)
+.model CRDJ5304 NJF(Vto=-1.5 Beta=0.775m Lambda=1.3m Is=1e-14 Rd=5 Rs=5 Cgs=2p Cgd=2p)
+.model CRDJ5305 NJF(Vto=-1.5 Beta=0.861m Lambda=1.3m Is=1e-14 Rd=5 Rs=5 Cgs=2p Cgd=2p)

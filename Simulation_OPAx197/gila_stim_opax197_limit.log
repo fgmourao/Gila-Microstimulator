@@ -1,0 +1,37 @@
+LTspice 26.0.2 for MacOS
+Circuit: /Users/flavio/Documents/Flavio/Academic/Projects/Approved/CNPq_21_2024/Material and Methods/Gila-Microstimulator/Simulation_OPAx197/gila_stim_opax197_limit.net
+Start Time: Fri Oct  2 15:17:17 2026
+
+.step rfaixa=5000
+solver = Alternate
+Maximum thread count: 12
+tnom = 27
+temp = 27
+method = trap
+Direct Newton iteration succeeded in finding operating point.
+
+.step rfaixa=50000
+Direct Newton iteration succeeded in finding operating point.
+
+.step rfaixa=500000
+Direct Newton iteration succeeded in finding operating point.
+Total elapsed time: 15.099 seconds.
+
+Files loaded:
+/Users/flavio/Documents/Flavio/Academic/Projects/Approved/CNPq_21_2024/Material and Methods/Gila-Microstimulator/Simulation_OPAx197/gila_stim_opax197_limit.net
+/Users/flavio/Library/Application Support/LTspice/Bottles/ltspice/drive_c/users/crossover/AppData/Local/LTspice/lib/cmp/standard.dio
+/Users/flavio/Documents/Flavio/Academic/Projects/Approved/CNPq_21_2024/Material and Methods/Gila-Microstimulator/Simulation_OPAx197/OPAx197.LIB
+/Users/flavio/Documents/Flavio/Academic/Projects/Approved/CNPq_21_2024/Material and Methods/Gila-Microstimulator/Simulation_OPAx197/CRD.lib
+
+
+Measurement: ipos
+  step	AVG(I(RLOAD) )	FROM	TO
+     1	-9.96701058631e-05	0.00015	0.00029
+     2	-1.01647456348e-05	0.00015	0.00029
+     3	-1.01717354087e-06	0.00015	0.00029
+
+Measurement: ineg
+  step	AVG(I(RLOAD) )	FROM	TO
+     1	-1.15025756194e-11	0.000375	0.000515
+     2	-8.66661583398e-13	0.000375	0.000515
+     3	9.63784429752e-13	0.000375	0.000515
